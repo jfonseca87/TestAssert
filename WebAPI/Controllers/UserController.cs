@@ -4,6 +4,7 @@ using ServiceBusiness.Business.Class;
 using ServiceBusiness.Business.Interfaces;
 using ServiceRepository.Repository.Class;
 using Transversal.Entities;
+using Utilities.GlobalResources;
 
 namespace ServiceAPI.WebAPI.Controllers
 {
@@ -24,9 +25,9 @@ namespace ServiceAPI.WebAPI.Controllers
                 UserFlight user = this.businessUserFlight.GetUserFlight(userDocumentNumber);
                 return Ok(user);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
 
@@ -36,7 +37,7 @@ namespace ServiceAPI.WebAPI.Controllers
         {
             if (user == null)
             {
-                throw new ArgumentNullException("It´s mandatory provide the data");
+                throw new ArgumentNullException(GlobalMessages.NullArgumentMessage, nameof(user));
             }
 
             try
@@ -44,9 +45,9 @@ namespace ServiceAPI.WebAPI.Controllers
                 int idUser = this.businessUserFlight.CreateUserFlight(user);
                 return Ok(idUser);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
     }

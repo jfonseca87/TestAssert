@@ -8,6 +8,7 @@ using ServiceBusiness.Business.Class;
 using ServiceBusiness.Business.Interfaces;
 using ServiceRepository.Repository.Class;
 using Transversal.Entities;
+using Utilities.GlobalResources;
 
 namespace ServiceAPI.WebAPI.Controllers
 {
@@ -28,9 +29,9 @@ namespace ServiceAPI.WebAPI.Controllers
                 Flight flight = this.businessFlight.GetFlight(idFlight);
                 return Ok(flight);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
 
@@ -40,7 +41,7 @@ namespace ServiceAPI.WebAPI.Controllers
         {
             if (flight == null)
             {
-                throw new ArgumentNullException("It´s mandatory provide the data");
+                throw new ArgumentNullException(GlobalMessages.NullArgumentMessage, nameof(flight));
             }
 
             try
@@ -48,9 +49,9 @@ namespace ServiceAPI.WebAPI.Controllers
                 int idFlight = this.businessFlight.CreateFlight(flight);
                 return Ok(idFlight);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
     }

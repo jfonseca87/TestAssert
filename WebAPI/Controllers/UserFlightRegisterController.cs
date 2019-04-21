@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using ServiceBusiness.Business.Class;
 using ServiceRepository.Business.Interfaces;
 using ServiceRepository.Repository.Class;
 using Transversal.Entities;
+using Utilities.GlobalResources;
 
-namespace WebAPI.Controllers
+namespace ServiceAPI.WebAPI.Controllers
 {
     public class UserFlightRegisterController : ApiController
     {
@@ -25,7 +24,7 @@ namespace WebAPI.Controllers
         {
             if (userFlightRegistry == null)
             {
-                throw new ArgumentNullException("It´s mandatory provide the data");
+                throw new ArgumentNullException(GlobalMessages.NullArgumentMessage, nameof(userFlightRegistry));
             }
 
             try
@@ -35,9 +34,9 @@ namespace WebAPI.Controllers
                                                                     userFlightRegistry.UserDocumentNumber);
                 return Ok(idRegistry);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
 
@@ -45,9 +44,9 @@ namespace WebAPI.Controllers
         [Route("api/Registry/UserFlightRegistryMassive")]
         public IHttpActionResult CreateUserFlightRegistryMassive(IEnumerable<UserFlightRegister> userFlightRecords)
         {
-            if (userFlightRecords.Count() == 0)
+            if (userFlightRecords.Any())
             {
-                throw new ArgumentNullException("It´s mandatory provide the list of data");
+                throw new ArgumentNullException(GlobalMessages.NullArgumentMessage, nameof(userFlightRecords));
             }
 
             try
@@ -55,9 +54,9 @@ namespace WebAPI.Controllers
                 IEnumerable<int> lstRecords = this.businessUserFlightRegister.CreateUserFlightRegisterMassive(userFlightRecords);
                 return Ok(lstRecords);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return BadRequest(GlobalMessages.ExceptionErrorMessage);
             }
         }
     }

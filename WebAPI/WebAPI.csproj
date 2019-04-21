@@ -134,6 +134,10 @@
       <Project>{a864287a-1af8-414c-88c5-c469627d74f8}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{6fb9abb4-7252-4cac-a482-45be9337ca90}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
